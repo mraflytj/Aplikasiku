@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">WATCH OUT!</string>
+    <string name="open">Buka</string>
+    <string name="close">Tutup</string>
+    <string name="daftar_disini"><u>Daftar di sini</u></string>
+    <string name="masuk">Masuk</string>
+    <string name="belum_punya">Belum memiliki akun?</string>
+    <string name="enter_email">Email</string>
+    <string name="enter_pass">Password</string>
+    <string name="enter_conf">Konfirmasi Password</string>
+    <string name="enter_name">Nama</string>
+    <string name="daftar">Daftar</string>
+    <string name="hai">Hai!</string>
+    <string name="ayo">Mari buat akun Anda</string>
+    <string name="welcome">Selamat Datang!</string>
+    <string name="mari">Mari masuk</string>
+    <string name="sudah_punya">Sudah memiliki akun?</string>
+    <string name="masuk_disini"><u>Masuk di sini</u></string>
+    <string name="enter_notelp">No.Telpon</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="capture_gbr">Capture Gambar</string>
+    <string name="upload_gbr">Upload Gambar</string>
+    <string name="report_jalan">Lapor Kerusakan Jalan</string>
+    <string name="history_rep">History Laporan</string>
+    <string name="logout">Keluar</string>
+    <string name="home">Home</string>
+</resources>

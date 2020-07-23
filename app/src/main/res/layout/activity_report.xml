@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReportActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layoutTool"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:layout_margin="5dp"
+            android:id="@+id/btnBackReport"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/ic_keyboard_backspace_black_24dp" />
+
+        <TextView
+            android:layout_toEndOf="@id/btnBackReport"
+            android:id="@+id/report_head"
+            android:layout_margin="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/report_jalan"
+            android:textAlignment="center"
+            android:layout_centerVertical="true"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="#fff"/>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layoutTool">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:padding="20dp">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnCaptureImage"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:text="@string/capture_gbr"
+                android:background="@drawable/button_one"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"/>
+
+            <ImageView
+                android:id="@+id/ivUpload"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_margin="10dp"
+                android:scaleType="fitXY" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnUploadImage"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:text="@string/upload_gbr"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/button_one"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</RelativeLayout>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "266459678502",
+    "firebase_url": "https://aplikasiku-deteksi.firebaseio.com",
+    "project_id": "aplikasiku-deteksi",
+    "storage_bucket": "aplikasiku-deteksi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:266459678502:android:51f448d45724867249e3e7",
+        "android_client_info": {
+          "package_name": "com.example.aplikasiku"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "266459678502-dkp8mkna7ue1r7spq8cd8e1or4a862lt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.aplikasiku",
+            "certificate_hash": "c9a541cc66ea11792a59d429fe7b8110fab042f2"
+          }
+        },
+        {
+          "client_id": "266459678502-issr1v6jmtqo562083e1ab4kptqgq1v4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2hbadc_b0vhuA0ejcFDZna6VXMAop_6c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "266459678502-issr1v6jmtqo562083e1ab4kptqgq1v4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
