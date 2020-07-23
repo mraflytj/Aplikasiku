@@ -82,7 +82,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(this, HistoryReport.class));
                 break;
             case R.id.logout:
-                firebaseAuth.signOut();
+                FirebaseAuth.getInstance().signOut();
                 finish();
                 startActivity(new Intent(this, LoginActivity.class));
                 break;

@@ -1,12 +1,9 @@
 package com.example.aplikasiku;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +11,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -66,8 +69,8 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user != null) {
-                    if (dataSnapshot.child("Users").hasChild(user.getUid())){
+                if (user != null) {
+                    if (dataSnapshot.child("Users").hasChild(user.getUid())) {
                         finish();
                         startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                     }
@@ -79,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
-        
+
         btnDaftar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,32 +148,41 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.dismiss();
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             //user registered successfully
-                            UserInformation userInformation = new UserInformation(name,email,phone,password);
+
                             FirebaseUser user = firebaseAuth.getCurrentUser();
-                            assert user != null;
-                            databaseReference.child("Users").child(user.getUid()).setValue(userInformation);
-                            finish();
-                            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                        }
-                        else{
+                            UserInformation userInformation = new UserInformation(user.getUid(), name, email, phone, password);
+                            addDataToFirestore(userInformation);
+
+                        } else {
                             //not registered
                             Toast.makeText(RegisterActivity.this, "Daftar gagal!! Coba lagi", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
-//        UserInformation userInformation = new UserInformation(name,email,phone,password);
-//        FirebaseUser user = firebaseAuth.getCurrentUser();
-//        if (user == null) {
-//            finish();
-//            startActivity(new Intent(this, LoginActivity.class));
-//        }
-//        else {
-//            databaseReference.child("Users").child(user.getUid()).setValue(userInformation);
-//            finish();
-//            startActivity(new Intent(this, HomeActivity.class));
-//        }
+    }
+
+    private void addDataToFirestore(UserInformation user) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("Users")
+                .document(user.getUserID())
+                .set(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("TAG", "DocumentSnapshot successfully written!");
+                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                        finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("TAG", "Error writing document", e);
+                    }
+                });
     }
 }

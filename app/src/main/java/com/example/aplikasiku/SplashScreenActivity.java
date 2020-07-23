@@ -1,11 +1,11 @@
 package com.example.aplikasiku;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,6 +29,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         int timeLoading = 3000;
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -38,10 +39,8 @@ public class SplashScreenActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             FirebaseUser user = firebaseAuth.getCurrentUser();
                             if (user != null) {
-                                if (snapshot.child("").hasChild(user.getUid())) {
-                                    finish();
-                                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                                }
+                                finish();
+                                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
 //                                else {
 //                                    finish();
 //                                    startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
@@ -54,9 +53,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
                         }
                     });
-                }
-
-                else {
+                } else {
                     Intent intent = new Intent(SplashScreenActivity.this, RegisterActivity.class);
                     startActivity(intent);
                     finish();

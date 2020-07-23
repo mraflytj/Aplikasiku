@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +24,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -113,27 +117,10 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.dismiss();
                         if (task.isSuccessful()) {
-                            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    FirebaseUser user = firebaseAuth.getCurrentUser();
-                                    if (user != null) {
-                                        if (snapshot.child("Users").hasChild(user.getUid())) {
-                                            finish();
-                                            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                                        }
-//                                        else {
-//                                            finish();
-//                                            startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
-//                                        }
-                                    }
-                                }
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            getUserData(user.getUid());
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
 
-                                }
-                            });
                         }
                         else {
                             //failed
@@ -142,4 +129,30 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    private void getUserData(String userID) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference docRef = db.collection("Users").document(userID);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                finish();
+                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+
+
+               /* UserModel user = documentSnapshot.toObject(UserModel.class);
+                SessionManager sessionManager = new SessionManager(LoginApiActivity.this);
+
+                sessionManager.createLoginSession(
+                        user.getNama(),
+                        user.getJabatan(),
+                        user.getNip()
+                );
+
+                startActivity(new Intent(LoginApiActivity.this, MainActivity.class));*/
+            }
+        });
+    }
+
+
 }
